@@ -1,13 +1,122 @@
-*{
-    box-sizing: border-box;
-
+* {
+  box-sizing: border-box;
 }
-html{
-    font-size: 62.5%;
-
+html {
+  font-size: 62.5%;
 }
 /* khôi phục lại cỡ chữ mặc định */
-body{
-    font-size: 1.6rem;
+body {
+  font-size: 1.6rem;
+  font-family: "Poppins", sans-serif;
+}
 
+/* =====================common====================những thuộc tính áp dụng chung cho cả website */
+/* bỏ gạch chân dưới chữ */
+a {
+  text-decoration: none;
+}
+.main-content {
+  /* chiều rộng của bộ khung maincontent */
+  width: 1170px;
+  /* dùng max-width để khi kéo trang nhỏ lại thì logo lesson. không bị dồn về sát lề, 
+    sẽ để lại khoảng chừa ví dụ là 24px, cho 2 bên thì lấy 100-48px */
+  max-width: calc(100% - 48px);
+  /* dùng margin-left và margin-right để căn chỉnh 2 bên của khối maincontent */
+  margin-left: auto;
+  margin-right: auto;
+}
+/* tạo hiệu ứng cho nút btn, vì btn là class chung cho nút signup nên sẽ code trong nhóm common chung này */
+.btn {
+  /* phần chữ bị dính sát vào nên đen, btn nằm trong thẻ a, mà thẻ a để mặc định là inline nên cần chuyển nó sang display: inline-block*/
+  display: inline-block;
+  /* dùng min-width để xác định chiều rộng tối thiêu cho nút bấm */
+  min-width: 118px;
+  /* khi chữ chuyển sang dạng inlineblock thì mới thêm được padding vào được */
+  padding: 0 16px;
+  /* dùng line-hight để đặt chiều cao cho nút bấm */
+  line-height: 50px;
+  color: #fff;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border-radius: 24.5px;
+  background: #171100;
+}
+
+/* ======================header================== */
+/* tạo mầu nền cho cả cái header này */
+.header {
+  background: #fffcf4;
+}
+/* tạo hiệu ứng đứng yên cho cả cái header khi lăn chuột xuống thì dùng position: sticky */
+.header.fixed {
+  position: sticky;
+  /* muốn cách lề trên là 8px thì bị neo lại khi cuộn chuột,
+  do đang để padding là 36px nên muốn chạy lùi lại và dính ở 8px thì cần trừ đi -28px */
+  top: -28px;
+}
+/* class header chứa body, trong class body có 3 class con là logo, nav, btn nên sẽ xoay ngang 3 class bằng đisplay flex */
+.header .body {
+  display: flex;
+  /* dùng align-items để dóng cả 3 khối logo, nav, btn thẳng hàng trên trục ngang  */
+  align-items: center;
+  /* dùng padding cho cả khối headerbody này dịch xuống: cách phía trên là 36px, trái phải = 0, và dưới là 8px */
+  padding: 36px 0 8px;
+}
+/* chuyển nav về bên trái thì những thằng đứng sau nav cũng sẽ chạy theo, nên nút signup cũng chạy theo về phía trái */
+.nav {
+  margin-left: auto;
+}
+/* trong class nav thì có 3 phần từ ul con nên dùng đisplayflex để xoay ngang logo,nav,btn */
+.nav ul {
+  display: flex;
+}
+/* tác động lên tất cả các thẻ a là con của class nav */
+.nav a {
+  /* ôn lại kiến thức
+muốn dấu gạch chân chạy theo nút home( định vị theo tổ tiên) thì dùng Position : absolute
+muốn dùng được position absolute thì phần tử chính phải để chế độ position relative 
+trong trường hp này: tổ tiên gần nhất dấu gạch nhất là thẻ a thì để thẻ a là relative và phần tử dấu gạch là absolute*/
+  position: relative;
+  color: #5f5b53;
+  font-size: 1.6rem;
+  padding: 8px 21px;
+}
+
+/* nếu muốn cho nút home cũng in đậm lên thì ta dùng liệt kê cho cái class nav có phần tử li.active và thẻ a, kết thúc bằng dấu phẩy */
+.nav li.active a,
+/* tác động lên các thẻ a là con của class nav khi chúng ta di chuột vào tạo hiệu ứng cho chữ */
+.nav a:hover {
+  color: #171100;
+  /* font-weight: 600; bỏ cái này vì để nguyên khi di chuột vào chữ giãn ra sẽ làm nhảy các chữ bên cạnh */
+  /* vì vậy phải dùng text-shadow đổ bóng cho chữ trục ngang để bóng lệch 1px, trục ngang để 0, độ nhoè blur để 0, và mầu để màu hiện tại */
+  text-shadow: 1px 0 0 currentColor;
+}
+
+.nav li.active a::after {
+  /* để position absolute để gạch chân chạy theo nút home */
+  position: absolute;
+  /* hiện tại dấu gạch đang cách nút home là 21px do mình đặt xung quanh nút home padding là 21px
+    giờ chỉ cần dịch dấu ngang sang trái là 21px thì sẽ nhảy về thẳng với nút home */
+  left: 21px;
+  /* để cách chữ home bên dưới 6px thì chỉ dịch bằng bottom */
+  bottom: 6px;
+  /* thêm đisplay-block thì mới hiển thị ra được khối rectag */
+  display: block;
+  content: "";
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: #171100;
+}
+
+/* code riêng cho btn signup */
+.header .btn-sign-up {
+  /* xem trên dự án rộng là 144px */
+  min-width: 144px;
+}
+
+/* nút này cách chữ reviews là 70px theo dự án, vì chữ reviews có padding là 21px, nên nút action này sẽ để margin trái là 49px */
+.header .action{
+    margin-left: 49px;
 }
